@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SimBox</class>
+ <widget class="QWidget" name="SimBox">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>818</width>
+    <height>630</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>SimBox</string>
+  </property>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>10</y>
+     <width>160</width>
+     <height>277</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="9" column="1">
+       <widget class="QLineEdit" name="gas_temperature_lineEdit"/>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="width_lineEdit"/>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>#electrons</string>
+        </property>
+       </widget>
+      </item>
+      <item row="11" column="1">
+       <widget class="QLineEdit" name="skip_steps_lineEdit"/>
+      </item>
+      <item row="10" column="1">
+       <widget class="QLineEdit" name="total_steps_lineEdit"/>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>width</string>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="0">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>steps</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>n0</string>
+        </property>
+       </widget>
+      </item>
+      <item row="11" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>skip steps</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QLineEdit" name="electrons_lineEdit"/>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>height</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>T0</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QLineEdit" name="height_lineEdit"/>
+      </item>
+      <item row="8" column="1">
+       <widget class="QLineEdit" name="gas_density_lineEdit"/>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string>#el. to show</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QLineEdit" name="electrons_to_show_lineEdit"/>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QPushButton" name="startButton">
+      <property name="text">
+       <string>Start</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="canvas" native="true">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>300</y>
+     <width>571</width>
+     <height>251</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>width_lineEdit</tabstop>
+  <tabstop>height_lineEdit</tabstop>
+  <tabstop>electrons_lineEdit</tabstop>
+  <tabstop>electrons_to_show_lineEdit</tabstop>
+  <tabstop>gas_density_lineEdit</tabstop>
+  <tabstop>gas_temperature_lineEdit</tabstop>
+  <tabstop>total_steps_lineEdit</tabstop>
+  <tabstop>skip_steps_lineEdit</tabstop>
+  <tabstop>startButton</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
