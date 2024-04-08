@@ -3,7 +3,7 @@
 
 #include <QThread>
 #include <QMutex>
-#include <QWaitCondition>
+#include <QApplication>
 #include <vector>
 #include <random>
 
@@ -23,12 +23,26 @@ struct Particle {
 
 };
 
+struct EngineParameters{
+    double bounding_box[3];
+
+    int sample_size;
+    int total_steps;
+    int skip_steps;
+
+
+    int electrons_number;
+    double heavy_number_density;
+    double heavy_temperature;
+    double electron_temperature;
+}; Q_DECLARE_METATYPE(EngineParameters)
+
 struct Sample {
     vector<Particle> particles;
     Particle mean;
-};
+}; Q_DECLARE_METATYPE(Sample)
 
-class Plasma : public QThread
+class Plasma : public QObject //QThread
 {
     Q_OBJECT
 public:
@@ -36,15 +50,17 @@ public:
     Plasma(QObject *parent = nullptr);
     ~Plasma();
 
-    void setup(double width, double height, int electrons_number, double heavy_number_density, double heavy_temperature, int skip_steps, int total_steps);
+public slots:
+    void compute(const EngineParameters& params);//double width, double height, int electrons_number, double heavy_number_density, double heavy_temperature, int skip_steps, int total_steps);
+    void abortComputation();
 
     //const vector<ParticleType>& particle_types();
 
 signals:
-    void stateUpdate(Sample s);//(const vector<Particle> &particles);
+    void stateUpdate(const Sample& s);//(const vector<Particle> &particles);
 
-protected:
-    void run() override;
+//protected:
+//    void run() override;
 
 private:
     QMutex particles_mutex;
@@ -62,16 +78,14 @@ private:
     int total_steps;
 
 
-    int sample_size;
+    size_t sample_size;
 
 
     //vector<ParticleType> _particle_types;
     std::default_random_engine generator;
 
 
-    QWaitCondition condition;
     QMutex mutex;
-    bool restart = false;
     bool abort = false;
 };
 

@@ -21,6 +21,10 @@ set(PROJECT_SOURCES
         plasma.h
         meanvelocity.cpp
         meanvelocity.h
+        particles2d.cpp
+        particles2d.h
+        testclock.cpp
+        testclock.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QGraphicsScene>
 #include <QGraphicsItem>
+#include "meanvelocity.h"
 #include "plasma.h"
 
 QT_BEGIN_NAMESPACE
@@ -22,15 +23,21 @@ protected:
     void paintEvent(QPaintEvent *event) override;
     void resizeEvent(QResizeEvent *event) override;
 
-private slots:
-    void updateParticlePositions();//(const vector<Particle>& particles);
+public slots:
+    void updateSample(const Sample& s);//(const vector<Particle>& particles);
     void startComputation();
 
+signals:
+    void setupPlasma(const EngineParameters& params);//double width, double height, int electrons_number, double heavy_number_density, double heavy_temperature, int skip_steps, int total_steps);
+    void abortPlasmaComputation();
+    void finish();
+
 private:
+    QThread worker_thread;
+    Sample sample;
     int counter = 0;
     int electrons_to_show;
     Ui::SimBox *ui;
-    Plasma plasma_thread;
     vector<QGraphicsEllipseItem*> particles;
     double centerX;
     double centerY;
