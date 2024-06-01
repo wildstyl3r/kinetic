@@ -2,10 +2,14 @@
 #define PLASMA_H
 
 #include <QThread>
+#include <QWaitCondition>
 #include <QMutex>
 #include <QApplication>
 #include <vector>
 #include <random>
+#include <cmath>
+#include "particle.h"
+#include "engineparameters.h"
 
 using std::vector;
 
@@ -15,70 +19,50 @@ using std::vector;
 //    int charge;
 //};
 
-struct Particle {
-    //int particle_type_index;
-    double coordinate[2];
-    double velocity[2];
-    //double acceleration[];
-
-};
-
-struct EngineParameters{
-    double bounding_box[3];
-
-    int sample_size;
-    int total_steps;
-    int skip_steps;
-
-
-    int electrons_number;
-    double heavy_number_density;
-    double heavy_temperature;
-    double electron_temperature;
-}; Q_DECLARE_METATYPE(EngineParameters)
-
 struct Sample {
+    double time;
     vector<Particle> particles;
-    Particle mean;
+    long long ionizations_minus_attachments;
+    Vector3DD flux_drift_velocity;
+    double flux_drift_diffusion;
+    double mean_energy;
+    double mobility;
+    bool steady_state;
+    Vector3DD mean;
+    Vector3DD width;
 }; Q_DECLARE_METATYPE(Sample)
 
-class Plasma : public QObject //QThread
+struct Results {
+    QVector<double> eedf;
+    double eedf_granulation;
+    double time_avg_energy;
+    Vector3DD flux_drift_velocity;
+    double flux_drift_diffusion;
+}; Q_DECLARE_METATYPE(Results)
+
+class Plasma : public QObject
 {
     Q_OBJECT
 public:
-    const double r0 = 2.8179403267e-15;
+    const double r0 = 130e-12;
     Plasma(QObject *parent = nullptr);
+    double mean_energy();
+    double mobility(double nu_total);
     ~Plasma();
+    QWaitCondition stopped;
 
 public slots:
-    void compute(const EngineParameters& params);//double width, double height, int electrons_number, double heavy_number_density, double heavy_temperature, int skip_steps, int total_steps);
+    void compute(const EngineParameters& params);
     void abortComputation();
 
-    //const vector<ParticleType>& particle_types();
-
 signals:
-    void stateUpdate(const Sample& s);//(const vector<Particle> &particles);
-
-//protected:
-//    void run() override;
+    void stateUpdate(const Sample& s);
+    void sendResults(const Results& s);
 
 private:
     QMutex particles_mutex;
     vector<Particle> _particles;
-    //double width;
-    //double height;
-    double box_dimensions[3];
-    int dimensions = 2;
-    double heavy_number_density;
-    double heavy_temperature;
-    double particle_radius = 3;
-    double Lambda = 0;
-
-    int skip_steps;
-    int total_steps;
-
-
-    size_t sample_size;
+    double time_delta = 1./1000000000000.; // s
 
 
     //vector<ParticleType> _particle_types;

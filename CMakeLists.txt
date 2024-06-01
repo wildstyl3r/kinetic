@@ -10,7 +10,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
+find_package(Qt5 REQUIRED COMPONENTS Charts)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(toml11)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -19,12 +21,24 @@ set(PROJECT_SOURCES
         simbox.ui
         plasma.cpp
         plasma.h
-        meanvelocity.cpp
-        meanvelocity.h
+        probeindicator.cpp
+        probeindicator.h
         particles2d.cpp
         particles2d.h
-        testclock.cpp
-        testclock.h
+        boundary.cpp
+        boundary.h
+        particle.h
+        particle.cpp
+        collisions.cpp
+        collisions.h
+        reaction.cpp
+        reaction.h
+        constants.h
+        vector3dd.h
+        chart.cpp
+        chart.h
+        engineparameters.cpp
+        engineparameters.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -50,7 +64,7 @@ else()
     endif()
 endif()
 
-target_link_libraries(kinetic PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(kinetic PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Charts)
 
 set_target_properties(kinetic PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
