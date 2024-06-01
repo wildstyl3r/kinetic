@@ -15,30 +15,29 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 find_package(toml11)
 
 set(PROJECT_SOURCES
-        main.cpp
-        simbox.cpp
-        simbox.h
-        simbox.ui
-        plasma.cpp
-        plasma.h
-        probeindicator.cpp
-        probeindicator.h
-        particles2d.cpp
-        particles2d.h
-        boundary.cpp
-        boundary.h
-        particle.h
-        particle.cpp
-        collisions.cpp
-        collisions.h
-        reaction.cpp
-        reaction.h
-        constants.h
-        vector3dd.h
-        chart.cpp
-        chart.h
-        engineparameters.cpp
-        engineparameters.h
+        src/main.cpp
+        src/simbox.cpp
+        include/simbox.h
+        src/plasma.cpp
+        include/plasma.h
+        src/probeindicator.cpp
+        include/probeindicator.h
+        src/particles2d.cpp
+        include/particles2d.h
+        src/boundary.cpp
+        include/boundary.h
+        include/particle.h
+        src/particle.cpp
+        src/collisions.cpp
+        include/collisions.h
+        src/reaction.cpp
+        include/reaction.h
+        include/constants.h
+        include/vector3dd.h
+        src/chart.cpp
+        include/chart.h
+        src/engineparameters.cpp
+        include/engineparameters.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
